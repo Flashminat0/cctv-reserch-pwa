@@ -1,5 +1,5 @@
 import styles from '@styles/Home.module.css';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { useEffect, useState } from 'react';
 import { firebaseConfig } from '../../firebase';
@@ -31,7 +31,7 @@ function Home(): JSX.Element {
       prompt: 'consent',
     });
 
-    signInWithPopup(auth, provider)
+    signInWithRedirect(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -59,7 +59,7 @@ function Home(): JSX.Element {
 
   return (
     <div className={styles.containers}>
-      <h1 className={styles.heading}>Secure Your Belongings with Ease</h1>
+      <h1 className={styles.heading}>Secure Your Belongings with Ease 🛡️</h1>
       <br />
       <h2 className={styles.content}>
         Let&apos;s get started by signing in with your Google account
