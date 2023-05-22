@@ -8,19 +8,19 @@ const bottomNavigation: cat.BottomNavigation = [
     id: 1,
     label: 'Home',
     href: '/',
-    icon: <HomeSvg className='w-6 h-6' />,
+    icon: <HomeSvg className="w-6 h-6" />,
   },
   {
     id: 2,
     label: 'Track',
     href: '/facts',
-    icon: <BiCctv className={`h-6 w-6`} />,
+    icon: <BiCctv className="h-6 w-6" />,
   },
   {
     id: 3,
     label: 'Notifications',
     href: '/breeds',
-    icon: <MdNotifications className={`h-6 w-6`} />,
+    icon: <MdNotifications className="h-6 w-6" />,
   },
 ];
 

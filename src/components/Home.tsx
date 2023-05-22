@@ -1,8 +1,8 @@
 import styles from '@styles/Home.module.css';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { firebaseConfig } from '../../firebase';
 import { initializeApp } from 'firebase/app';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { firebaseConfig } from '../../firebase';
 
 function Home(): JSX.Element {
   const app = initializeApp(firebaseConfig);
@@ -10,6 +10,17 @@ function Home(): JSX.Element {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [buttonText, setButtonText] = useState('Sign In');
+
+  useEffect(() => {
+    if (loggedIn) {
+      setButtonText('Signed In');
+    } else if (loading) {
+      setButtonText('Loading...');
+    } else {
+      setButtonText('Sign In');
+    }
+  }, [loggedIn, loading]);
 
   const signInWithGoogle = () => {
     setLoading(true);
@@ -26,23 +37,24 @@ function Home(): JSX.Element {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         // The signed-in user info.
-        const user = result.user;
+        const { user } = result;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
         setLoggedIn(true);
         setLoading(false);
         console.log(user);
-      }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-      setLoading(false);
-    });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const { email } = error.customData;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        setLoading(false);
+      });
   };
 
   return (
@@ -50,18 +62,21 @@ function Home(): JSX.Element {
       <h1 className={styles.heading}>Secure Your Belongings with Ease</h1>
       <br />
       <h2 className={styles.content}>
-        Let's get started by signing in with your Google account
+        Let&apos;s get started by signing in with your Google account
       </h2>
       <br />
-      <div className='mt-10'>
-        <div onClick={signInWithGoogle} className={`group ${styles.link}`}>
+      <div className="mt-10">
+        <button
+          type="button"
+          onKeyDown={signInWithGoogle}
+          onClick={signInWithGoogle}
+          className={`group ${styles.link}`}
+        >
           <span className={styles.border} />
           <span className={`group-hover:bg-opacity-0 duration-400 ${styles.btn}`}>
-            <span className={styles.text}>
-              {loading ? 'Loading...' : loggedIn ? 'Signed In' : 'Sign In'}
-            </span>
+            <span className={styles.text}>{buttonText}</span>
           </span>
-        </div>
+        </button>
       </div>
     </div>
   );

@@ -11,19 +11,19 @@ function Header(): JSX.Element {
   return (
     <header className={styles.container}>
       <div className={styles.logo}>
-        <div className='h-16'>
-          <Link href='/'>
-            <CatLogoSvg className='w-full h-full' />
+        <div className="h-16">
+          <Link href="/">
+            <CatLogoSvg className="w-full h-full" />
           </Link>
         </div>
       </div>
       <div className={styles.name}>
-        <Link href='/'>SecureVision</Link>
+        <Link href="/">SecureVision</Link>
       </div>
       <div className={styles.small}>
         <div className={styles.smallCat}>
-          <Link href='/' aria-label='Cat'>
-            <CatLogoSvg className='w-full h-full' />
+          <Link href="/" aria-label="Cat">
+            <CatLogoSvg className="w-full h-full" />
           </Link>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import type {NextApiRequest, NextApiResponse} from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 /**
  * `handler` is a function that takes a `NextApiRequest` and a `NextApiResponse` and returns a
@@ -8,5 +8,5 @@ import type {NextApiRequest, NextApiResponse} from 'next';
  * @param res - NextApiResponse<cat.Data>
  */
 export default function handler(_req: NextApiRequest, res: NextApiResponse<cat.Data>) {
-  res.status(200).json({Boom: 'API is Working'});
+  res.status(200).json({ Boom: 'API is Working' });
 }
