@@ -61,13 +61,11 @@ function Home(): JSX.Element {
     <div className={styles.containers}>
       <h1 className={styles.heading}>Secure Your Belongings with Ease </h1>
       <br />
-      <h2 className={styles.content}>
-        Let&apos;s get started by signing in with your SLIIT email
-      </h2>
+      <h2 className={styles.content}>Let&apos;s get started by signing in with your SLIIT email</h2>
       <br />
-      <div className='mt-10'>
+      <div className="mt-10">
         <button
-          type='button'
+          type="button"
           onKeyDown={signInWithGoogle}
           onClick={signInWithGoogle}
           className={`group ${styles.link}`}
