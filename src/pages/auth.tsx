@@ -1,12 +1,15 @@
 import Page from '@layouts/Page';
 import Section from '@layouts/Section';
 import { Home } from '@components/index';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { firebaseConfig } from '../../firebase';
 import { initializeApp } from 'firebase/app';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'next/router';
 
 export default function main(): JSX.Element {
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,6 +17,17 @@ export default function main(): JSX.Element {
   const auth = getAuth(app);
 
   const [verifiedEmail, setVerifiedEmail] = useState('');
+  useEffect(() => {
+    if (verifiedEmail) {
+      signInComplete();
+    }
+  }, [verifiedEmail]);
+
+  const signInComplete = async () => {
+    localStorage.setItem('email', verifiedEmail);
+
+    await router.push('/track');
+  };
 
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +37,7 @@ export default function main(): JSX.Element {
         if (userCredential?.user?.email) {
           setVerifiedEmail(userCredential?.user?.email);
         }
-        
+
       }).catch((error) => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
