@@ -8,8 +8,8 @@ import Link from 'next/link';
 const videoConstraints = {
   width: 640,
   height: 480,
-  // facingMode: { exact: 'environment' },
-  facingMode: 'user',
+  facingMode: { exact: 'environment' },
+  // facingMode: 'user',
 };
 
 export default function track(): JSX.Element {
