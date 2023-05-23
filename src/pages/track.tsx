@@ -2,10 +2,12 @@ import Page from '@layouts/Page';
 import Section from '@layouts/Section';
 import Webcam from 'react-webcam';
 import { useCallback, useRef, useState } from 'react';
+import styles from '@styles/Home.module.css';
+import Link from 'next/link';
 
 const videoConstraints = {
-  width: 1280,
-  height: 1280,
+  width: 640,
+  height: 480,
   facingMode: { exact: 'environment' },
 };
 
@@ -28,20 +30,49 @@ export default function track(): JSX.Element {
   return (
     <Page title='Track'>
       <Section className='flex items-center justify-center flex-col p-2'>
-        <Webcam
-          audio={false}
-          height={1280}
-          ref={webcamRef}
-          screenshotFormat='image/jpeg'
-          width={1280}
-          videoConstraints={videoConstraints}
-        />
-        <button
-          className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`}
-          onClick={capture}>Capture photo
-        </button>
+        {imageSrc ? <div className={`space-y-4`}>
+          {imageSrc && <img src={imageSrc} alt={`image`} />}
+          <button
+            onClick={() => setImageSrc('')}
+            className={`group ${styles.link}`}
+          >
+            <span className={styles.border} />
+            <span className={`group-hover:bg-opacity-0 duration-400 ${styles.btn}`}>
+              <span className={styles.text}>Try Again</span>
+            </span>
+          </button>
 
-        {imageSrc && <img src={imageSrc} alt={`image`} />}
+          <button
+            onClick={capture}
+            className={`group ${styles.link}`}
+          >
+            <span className={styles.border} />
+            <span className={`group-hover:bg-opacity-0 duration-400 ${styles.btn}`}>
+              <span className={styles.text}>Try Again</span>
+            </span>
+          </button>
+        </div> : <div className={`space-y-4`}>
+          <Webcam
+            audio={false}
+            height={480}
+            ref={webcamRef}
+            screenshotFormat='image/jpeg'
+            width={640}
+            videoConstraints={videoConstraints}
+          />
+
+          <button
+            onClick={capture}
+            className={`group ${styles.link}`}
+          >
+            <span className={styles.border} />
+            <span className={`group-hover:bg-opacity-0 duration-400 ${styles.btn}`}>
+              <span className={styles.text}>Capture photo</span>
+            </span>
+          </button>
+        </div>}
+
+
       </Section>
     </Page>
   );
