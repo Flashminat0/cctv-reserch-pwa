@@ -4,15 +4,22 @@ import Webcam from 'react-webcam';
 import { useCallback, useRef, useState } from 'react';
 import styles from '@styles/Home.module.css';
 import Link from 'next/link';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../firebase';
+import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from 'firebase/storage';
 
 const videoConstraints = {
   width: 640,
   height: 480,
-  facingMode: { exact: 'environment' },
-  // facingMode: 'user',
+  // facingMode: { exact: 'environment' },
+  facingMode: 'user',
 };
 
-export default function track(): JSX.Element {
+const track = (): JSX.Element => {
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
+
+
   const [imageSrc, setImageSrc] = useState('');
 
   const webcamRef = useRef(null);
@@ -27,6 +34,24 @@ export default function track(): JSX.Element {
     },
     [webcamRef],
   );
+
+
+  const uploadPictureAndGetResult = () => {
+    const userEmail = localStorage.getItem('email');
+    const timestamp = new Date().getTime();
+
+    console.log('userEmail', userEmail);
+    console.log('timestamp', timestamp);
+
+    const storageRef = ref(storage, 'jobs/' + userEmail + '/' + timestamp + '.jpg');
+
+    uploadString(storageRef, imageSrc, 'data_url').then((snapshot) => {
+      getDownloadURL(storageRef)
+        .then((url) => {
+          console.log('url', url);
+        });
+    });
+  };
 
   return (
     <Page title='Track'>
@@ -44,7 +69,7 @@ export default function track(): JSX.Element {
           </button>
 
           <button
-            onClick={capture}
+            onClick={uploadPictureAndGetResult}
             className={`group ${styles.link}`}
           >
             <span className={styles.border} />
@@ -77,4 +102,5 @@ export default function track(): JSX.Element {
       </Section>
     </Page>
   );
-}
+};
+export default track;
