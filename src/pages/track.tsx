@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase';
 import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from 'firebase/storage';
+import axios from 'axios';
 
 const videoConstraints = {
   width: 640,
@@ -40,15 +41,16 @@ const track = (): JSX.Element => {
     const userEmail = localStorage.getItem('email');
     const timestamp = new Date().getTime();
 
-    console.log('userEmail', userEmail);
-    console.log('timestamp', timestamp);
-
-    const storageRef = ref(storage, 'jobs/' + userEmail + '/' + timestamp + '.jpg');
+    const storageRef = ref(storage, 'jobs/' + userEmail + '/' + timestamp + '/' + 'source.jpg');
 
     uploadString(storageRef, imageSrc, 'data_url').then((snapshot) => {
       getDownloadURL(storageRef)
         .then((url) => {
           console.log('url', url);
+
+          // axios.post('https://us-central1-aiot-fit-xlab.cloudfunctions.net/track', {}).then((res) => {
+          //
+          // });
         });
     });
   };
