@@ -8,7 +8,8 @@ import Link from 'next/link';
 const videoConstraints = {
   width: 640,
   height: 480,
-  facingMode: { exact: 'environment' },
+  // facingMode: { exact: 'environment' },
+  facingMode: 'user',
 };
 
 export default function track(): JSX.Element {
@@ -30,7 +31,7 @@ export default function track(): JSX.Element {
   return (
     <Page title='Track'>
       <Section className='flex items-center justify-center flex-col p-2'>
-        {imageSrc ? <div className={`space-y-4`}>
+        {imageSrc ? <div className={`space-y-4 flex flex-col items-center justify-center `}>
           {imageSrc && <img src={imageSrc} alt={`image`} />}
           <button
             onClick={() => setImageSrc('')}
@@ -48,10 +49,10 @@ export default function track(): JSX.Element {
           >
             <span className={styles.border} />
             <span className={`group-hover:bg-opacity-0 duration-400 ${styles.btn}`}>
-              <span className={styles.text}>Try Again</span>
+              <span className={styles.text}>Track Laptop</span>
             </span>
           </button>
-        </div> : <div className={`space-y-4`}>
+        </div> : <div className={`space-y-4 flex flex-col items-center justify-center`}>
           <Webcam
             audio={false}
             height={480}
