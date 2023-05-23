@@ -12,8 +12,8 @@ import axios from 'axios';
 const videoConstraints = {
   width: 640,
   height: 480,
-  // facingMode: { exact: 'environment' },
-  facingMode: 'user',
+  facingMode: { exact: 'environment' },
+  // facingMode: 'user',
 };
 
 const track = (): JSX.Element => {
