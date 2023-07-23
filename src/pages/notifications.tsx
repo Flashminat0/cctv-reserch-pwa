@@ -21,7 +21,7 @@ export default function facts(): JSX.Element {
         <div className={`flex items-center justify-center text-xl font-semibold p-2`}>Notifications</div>
         {token && <div
           onClick={copyToClipboard}
-          className={`flex items-center justify-center text-xl font-semibold p-2`}>Token: {token}</div>}
+          className={`flex items-center justify-center text-xl font-semibold p-2`}>{token}</div>}
         {/*<BindedNotification />*/}
       </Section>
     </Page>

@@ -71,6 +71,10 @@ function Page({ title, className, children }: cat.PageProps): JSX.Element {
       // ...
     });
 
+  //   setBackgroundMessageHandler
+
+
+
   };
 
   const sendToAuth = async () => {
