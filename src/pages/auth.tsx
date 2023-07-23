@@ -1,11 +1,10 @@
 import Page from '@layouts/Page';
 import Section from '@layouts/Section';
-import { Home } from '@components/index';
 import React, { useEffect, useState } from 'react';
-import { firebaseConfig } from '../../firebase';
-import { initializeApp } from 'firebase/app';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { FirebaseApp } from '../../firebase';
+
 
 export default function main(): JSX.Element {
   const router = useRouter();
@@ -13,8 +12,8 @@ export default function main(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+
+  const auth = getAuth(FirebaseApp);
 
   const [verifiedEmail, setVerifiedEmail] = useState('');
   useEffect(() => {

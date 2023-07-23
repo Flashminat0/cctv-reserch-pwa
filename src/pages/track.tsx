@@ -3,9 +3,9 @@ import Section from '@layouts/Section';
 import Webcam from 'react-webcam';
 import { useCallback, useRef, useState } from 'react';
 import styles from '@styles/Home.module.css';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebase';
+import { FirebaseApp } from '../../firebase';
 import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage';
+
 
 const videoConstraints = {
   width: 640,
@@ -14,8 +14,7 @@ const videoConstraints = {
 };
 
 const track = (): JSX.Element => {
-  const app = initializeApp(firebaseConfig);
-  const storage = getStorage(app);
+  const storage = getStorage(FirebaseApp);
 
 
   const [imageSrc, setImageSrc] = useState('');

@@ -2,12 +2,10 @@ import styles from '@styles/Home.module.css';
 import { getAuth, getRedirectResult, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { useEffect, useState } from 'react';
-import { firebaseConfig } from '../../firebase';
 import Link from 'next/link';
 
 function Home(): JSX.Element {
-  // const app = initializeApp(firebaseConfig);
-  // const auth = getAuth(app);
+
 
   const [isLogged, setIsLogged] = useState(false);
 
