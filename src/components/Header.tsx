@@ -12,7 +12,7 @@ function Header(): JSX.Element {
     <header className={styles.container}>
       <div className={styles.logo}>
         <div className='h-16 grid place-items-center'>
-          <Link href='/'>
+          <Link href='/logout'>
             <img src='/icons/icon-maskable-512x512.png' alt='logo' width='50px' />
           </Link>
         </div>
@@ -22,7 +22,7 @@ function Header(): JSX.Element {
       </div>
       <div className={styles.small}>
         <div className={`${styles.smallCat} grid place-items-center`}>
-          <Link href='/' aria-label='Cat'>
+          <Link href='/logout' aria-label='Cat'>
             <img src='/icons/icon-maskable-512x512.png' alt='logo' width='40px' />
           </Link>
         </div>
