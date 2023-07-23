@@ -13,7 +13,7 @@ export default function facts(): JSX.Element {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(token);
-  }
+  };
 
   return (
     <Page title='Facts'>
@@ -21,8 +21,15 @@ export default function facts(): JSX.Element {
         <div className={`flex items-center justify-center text-xl font-semibold p-2`}>Notifications</div>
         {token && <div
           onClick={copyToClipboard}
-          className={`flex items-center justify-center text-xl font-semibold p-2`}>{token}</div>}
+          className={`flex items-center justify-center text-xl font-semibold p-2`}>{token.slice(0, 5)}</div>}
         {/*<BindedNotification />*/}
+
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(token);
+          }}
+          className={`flex items-center justify-center text-xl font-semibold p-2`}>Copy
+        </button>
       </Section>
     </Page>
   );
