@@ -15,7 +15,7 @@ function Footer(): JSX.Element {
           <p className={styles.paragraph}>
             Developed by{' '}
             <Link href={AUTHOR_URL} className={styles.link} target="_blank" rel="noreferrer">
-              Ajay Kanniyappan
+              Flashminat0
             </Link>
           </p>
         </div>

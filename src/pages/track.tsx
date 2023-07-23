@@ -3,17 +3,14 @@ import Section from '@layouts/Section';
 import Webcam from 'react-webcam';
 import { useCallback, useRef, useState } from 'react';
 import styles from '@styles/Home.module.css';
-import Link from 'next/link';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase';
-import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from 'firebase/storage';
-import axios from 'axios';
+import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage';
 
 const videoConstraints = {
   width: 640,
   height: 480,
   facingMode: { exact: 'environment' },
-  // facingMode: 'user',
 };
 
 const track = (): JSX.Element => {
