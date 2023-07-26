@@ -28,6 +28,10 @@ export default function main(): JSX.Element {
     await router.push('/track');
   };
 
+  useEffect(() => {
+    localStorage.removeItem('email')
+  }, []);
+
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

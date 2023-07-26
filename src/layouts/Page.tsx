@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getMessaging, getToken } from 'firebase/messaging';
 import { FirebaseApp } from '../../firebase';
-
+import { getAuth } from 'firebase/auth';
 
 /**
  * It's a React component that renders a page with a header, footer, and bottom navigation
@@ -32,12 +32,21 @@ function Page({ title, className, children }: cat.PageProps): JSX.Element {
 
     } else if (!email) {
       sendToAuth();
+    } else if (email) {
+
     }
 
     requestPermission();
     getTokenAndSave();
+    sendToLoginIfNoCurrentUser();
 
-  }, []);
+    if (router.pathname === '/auth') {
+      localStorage.removeItem('email');
+      setIsLogged(false)
+    }
+
+
+  }, [router.pathname]);
 
 
   const requestPermission = () => {
@@ -71,15 +80,21 @@ function Page({ title, className, children }: cat.PageProps): JSX.Element {
       // ...
     });
 
-  //   setBackgroundMessageHandler
-
-
-
+    //   setBackgroundMessageHandler
   };
 
   const sendToAuth = async () => {
     await router.push('/auth');
   };
+
+  const sendToLoginIfNoCurrentUser = async () => {
+    const auth = getAuth(FirebaseApp);
+
+    if (!auth.currentUser) {
+      await router.push('/auth');
+    }
+  };
+
 
   return (
     <>

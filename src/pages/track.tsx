@@ -1,10 +1,12 @@
 import Page from '@layouts/Page';
 import Section from '@layouts/Section';
 import Webcam from 'react-webcam';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '@styles/Home.module.css';
 import { FirebaseApp } from '../../firebase';
 import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage';
+import { getDatabase, ref as ref2, set } from 'firebase/database';
+import { getAuth, getAdditionalUserInfo } from 'firebase/auth';
 
 
 const videoConstraints = {
@@ -14,8 +16,9 @@ const videoConstraints = {
 };
 
 const track = (): JSX.Element => {
+  const auth = getAuth(FirebaseApp);
   const storage = getStorage(FirebaseApp);
-
+  const database = getDatabase(FirebaseApp);
 
   const [imageSrc, setImageSrc] = useState('');
 
@@ -41,13 +44,25 @@ const track = (): JSX.Element => {
 
     uploadString(storageRef, imageSrc, 'data_url').then((snapshot) => {
       getDownloadURL(storageRef)
-        .then((url) => {
+        .then(async (url) => {
           console.log('url', url);
 
           // axios.post('https://us-central1-aiot-fit-xlab.cloudfunctions.net/track', {}).then((res) => {
           //
           // });
+
+          await uploadDataToFirebase(url, timestamp);
         });
+    });
+  };
+
+
+  const uploadDataToFirebase = async (url: string, timestamp: number) => {
+    const dateUnix = new Date().getTime();
+
+    await set(ref2(database, `${auth.currentUser?.email}/${timestamp}/`), {
+      email: auth.currentUser?.email,
+      image_of_laptop: url,
     });
   };
 
