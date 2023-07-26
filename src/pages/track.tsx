@@ -53,7 +53,7 @@ const track = (): JSX.Element => {
 
   const uploadDataToFirebase = (url: string, timestamp: number, userEmail: string | null) => {
 
-    set(ref2(database, `${userEmail}/`), {
+    set(ref2(database, `${userEmail?.split('@')[0]}/${timestamp}/`), {
       email: userEmail,
       image_of_laptop: url,
       timestamp: timestamp,
