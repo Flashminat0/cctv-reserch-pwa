@@ -52,14 +52,14 @@ const track = (): JSX.Element => {
 
 
   const uploadDataToFirebase = async (url: string, timestamp: number) => {
-    // ${auth.currentUser?.email}/${timestamp}/
-    // auth.currentUser?.email
 
-    await set(ref2(database, `test/`), {
-      email: 'asdadad',
+    await set(ref2(database, `${auth.currentUser?.email}/${timestamp}/`), {
+      email: auth.currentUser?.email,
       image_of_laptop: url,
     });
   };
+
+
 
   return (
     <Page title='Track'>
