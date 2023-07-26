@@ -44,16 +44,16 @@ const track = (): JSX.Element => {
 
     uploadString(storageRef, imageSrc, 'data_url').then((snapshot) => {
       getDownloadURL(storageRef)
-        .then(async (url) => {
-          await uploadDataToFirebase(url, timestamp, userEmail);
+        .then((url) => {
+          uploadDataToFirebase(url, timestamp, userEmail);
         });
     });
   };
 
 
-  const uploadDataToFirebase = async (url: string, timestamp: number, userEmail: string | null) => {
+  const uploadDataToFirebase = (url: string, timestamp: number, userEmail: string | null) => {
 
-    await set(ref2(database, `${userEmail}/${timestamp}/`), {
+    set(ref2(database, `${userEmail}/${timestamp}/`), {
       email: userEmail,
       image_of_laptop: url,
     });
