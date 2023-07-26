@@ -45,20 +45,19 @@ const track = (): JSX.Element => {
     uploadString(storageRef, imageSrc, 'data_url').then((snapshot) => {
       getDownloadURL(storageRef)
         .then(async (url) => {
-          await uploadDataToFirebase(url, timestamp);
+          await uploadDataToFirebase(url, timestamp, userEmail);
         });
     });
   };
 
 
-  const uploadDataToFirebase = async (url: string, timestamp: number) => {
+  const uploadDataToFirebase = async (url: string, timestamp: number, userEmail: string | null) => {
 
-    await set(ref2(database, `${auth.currentUser?.email}/${timestamp}/`), {
-      email: auth.currentUser?.email,
+    await set(ref2(database, `${userEmail}/${timestamp}/`), {
+      email: userEmail,
       image_of_laptop: url,
     });
   };
-
 
 
   return (
